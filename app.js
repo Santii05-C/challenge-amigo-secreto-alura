@@ -1,4 +1,4 @@
-const misAmigos = [""];
+const misAmigos = [];
 mostrarAmigos(misAmigos);
 
 /*Función para agregar un amigo al array, verificar que no esté vacio y limpiar el input*/
@@ -7,7 +7,17 @@ function agregarAmigo() {
   const nombreAmigo = inputAmigo.value.trim();
 
   if (nombreAmigo === "") {
-    alert("Por favor, inserte un nombre.");
+    alert("Por favor, ingrese un nombre válido.");
+    return;
+  }
+
+  const existe = misAmigos.some(
+    (amigo) => amigo.toLowerCase() === nombreAmigo.toLowerCase()
+  );
+
+  if (existe) {
+    alert("¡Este nombre ya fue escrito!");
+    inputAmigo.value = "";
     return;
   }
 
@@ -36,8 +46,12 @@ function sortearAmigo() {
     alert("No hay amigos para sortear");
     return;
   }
+  if (misAmigos.length <= 3) {
+    alert("Debe haber 4 nombres para sortear");
+    return;
+  }
 
   const indiceAleatorio = Math.floor(Math.random() * misAmigos.length);
   const nombreGanador = misAmigos[indiceAleatorio];
-  resultado.innerHTML = `El ganador es: ${misAmigos[indiceAleatorio]}`;
+  resultado.innerHTML = `El ganador es: ${nombreGanador}`;
 }
